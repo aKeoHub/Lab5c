@@ -12,6 +12,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Shopping List </h1>
+        
+        
+        <form>
+            <label for="name">Username:</label>
+                              
+                <input type="text" name="name id="name">
+                <button type="submit">Register Name</button>
+        </form>
     </body>
 </html>
