@@ -27,30 +27,25 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
         String name = (String) session.getAttribute("name");
-        
         String query = request.getQueryString();
-                    if (query != null && query.contains("logout")) {
-                session.invalidate();
-                
-                request.setAttribute("message", "You are logged out");
-                getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("ShoppingList");
-                return;
-            }
+        
+                if (query != null && query.contains("logout")) {
+            session.invalidate();
+            request.setAttribute("message", "You are logged out");
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            return;
+        }
 
         if (name == null) {
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
         }
-        
-                    
 
 
-        
 
     }
 
@@ -67,30 +62,21 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-
         String action = request.getParameter("action");
-        
+
         if (action != null && action.equals("add")) {
             String item = request.getParameter("item");
-            
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
-
             items.add(item);
-
             session.setAttribute("items", items);
         } else if (action != null && action.equals("delete")) {
             String item = request.getParameter("item");
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
-
             items.remove(item);
-
             session.setAttribute("items", items);
-
         } else {
             String name = request.getParameter("name");
-
             ArrayList<String> items = new ArrayList<>();
-
             session.setAttribute("name", name);
             session.setAttribute("items", items);
         }
