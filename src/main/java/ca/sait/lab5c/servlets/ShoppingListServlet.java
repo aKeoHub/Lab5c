@@ -29,12 +29,28 @@ public class ShoppingListServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         String name = (String) session.getAttribute("name");
+        
+        String query = request.getQueryString();
+                    if (query != null && query.contains("logout")) {
+                session.invalidate();
+                
+                request.setAttribute("message", "You are logged out");
+                getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("ShoppingList");
+                return;
+            }
 
         if (name == null) {
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
         }
+        
+                    
+
+
+        
 
     }
 

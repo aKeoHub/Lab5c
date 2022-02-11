@@ -20,6 +20,7 @@
                               
                 <input type="text" name="name" id="name">
                 <button type="submit">Register Name</button>
+                <p>${message}</p>
         </form>
     </body>
 </html>
